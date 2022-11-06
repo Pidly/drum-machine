@@ -1,11 +1,12 @@
 import './App.css';
-import DrumPad from './components/DrumPad';
+import DrumPads from './components/DrumPads';
+import DrumMachine from './components/DrumMachine';
 
 function App() {
   return (
     <div className="App">
       <div id='drum-machine-container'>
-        <DrumPad/>
+        <DrumMachine/>
       </div>
     </div>
   );

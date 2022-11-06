@@ -1,8 +1,12 @@
+import DrumPads from './DrumPads';
+import DrumControls from './drum-controls/DrumControls';
+import './DrumMachine.css';
 
 function DrumMachine() {
     return (
-        <div>
-
+        <div id="drum-machine">
+            <DrumPads/>
+            <DrumControls/>
         </div>
     );
 }

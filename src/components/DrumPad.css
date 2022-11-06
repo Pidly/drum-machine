@@ -1,4 +1,13 @@
 .drum-pad {
-    padding: 40px;
+    padding: 30px 40px;
+    border-radius: 5px;
+    border: 1px solid black;
     margin: 5px;
+    background-color: gray;
+    box-shadow: black 3px 3px 5px;
+    font-weight: bold;
+    font-size: 16px;
+}
+.drum-pad:active {
+    background-color: aqua;
 }

@@ -1,0 +1,9 @@
+#drum-machine {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    background-color: #b3b3b3;
+    padding: 35px;
+    border: 6px solid orange;
+}
