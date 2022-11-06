@@ -1,29 +1,33 @@
 import './DrumPad.css';
-import React from 'react';
+import React, {useState} from 'react';
+
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators } from '../state/index';
 import {useEffect} from 'react';
 
 function DrumPad(data) {
-    const volume = useSelector((state) => state.volume);
-
-    const dispatch = useDispatch();
-    const { setInfo } = bindActionCreators(actionCreators, dispatch);
-
-    let ref = React.createRef();
     let soundFile = data.soundFile;
     let soundName = data.soundName;
     let keyCharacter= data.keyCharacter;
+
+    const dispatch = useDispatch();
+
+    //Global state
+    const volume = useSelector((state) => state.volume);
+    const { setInfo } = bindActionCreators(actionCreators, dispatch);
+
     
+    const grayColor = "gray";
+    const aquaColor = "aqua";
+    //Local state to color individual button presses
+    const [color, setColor] = useState(grayColor);
+
     useEffect(() => {
         const keyDownHandler = event => {
           if (event.key === keyCharacter.toLowerCase()) {
             event.preventDefault();
-            // 👇️ your logic here
-            //playSound();
-            handleClick();
-            //setInfo(soundName);
+            pressButton();      
           }
         };
     
@@ -32,20 +36,18 @@ function DrumPad(data) {
         return () => {
           document.removeEventListener('keydown', keyDownHandler);
         };
-      }, [volume]);
-    /*
-        need:
-        {
-            soundFile: file(Heater-1.mp3),
-            soundName: "Heater 1",
-            keyCharacter: "Q" (Q,W,E,A,S,D,Z,X,C)
-        }
+      }, [volume, color]);
+    
+    const pressButton = () => {
+        playSound();
+        setColor(aquaColor);
+        setInfo(soundName);
+        setTimeout(revertColor, 100);
+    }
 
-        state for:
-            volume,
-            last sound played (Or volume adjusted),
-            Power button?
-    */
+    const revertColor = () => {
+        setColor(grayColor);
+    }
             
     const handleEvent = () => {
         playSound();
@@ -53,22 +55,16 @@ function DrumPad(data) {
     }
 
     const playSound = () => {
-        console.log(volume);
         let audio = new Audio(soundFile);
         audio.volume = volume;
         audio.play();
     }
-    const handleClick = () => {
-        ref.current.click();
-    }
-
+    
     return (
         <div>
-            <button className="drum-pad" onClick={handleEvent} ref={ref}>{keyCharacter}</button>
+            <button className="drum-pad" onClick={pressButton} style={{backgroundColor: color}}>{keyCharacter}</button>
         </div>
     );
-
-    
 }
 
 export default DrumPad;

@@ -10,3 +10,9 @@ export const setInfo = (info) => {
         info
     }
 }
+export const setColor = (color) => {
+    return {
+        type: "COLOR",
+        color
+    }
+}
